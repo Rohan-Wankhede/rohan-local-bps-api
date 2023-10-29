@@ -12,11 +12,8 @@ internal class EditUser
 {
     public static WebApplication MapEndpoint(WebApplication app)
     {
-        app.MapPut("api/v1/users/{id}", async (
-            Guid id,
-            Request request,
-            ISender sender,
-            CancellationToken token) =>
+        // I am just checking git integration 
+        app.MapPut("api/v1/users/{id}", async ( Guid id, Request request, ISender sender, CancellationToken token) =>
         {
             var response = await sender.Send(new Request(id), token);
             return Results.Ok(new ApiResponse<Response>
@@ -58,8 +55,19 @@ internal class EditUser
 
         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            var user = await _dbContext.Users
-                .FindAsync(new object[] { (Id)request.Id }, cancellationToken);
+            string jsonFilePath = "Common/Data/UserData.json";
+            var userlist = await JsonFileReader.ReadJsonFileAsync<AzUser>(jsonFilePath, cancellationToken);
+
+            AzUser user = new AzUser
+            {
+                Id = Guid.NewGuid(),
+                UserName = request.UserName,
+                SurName = request.SurName,
+                UserEmail = request.UserEmail,
+                UserRole = request.UserRole,
+                UserStatus = request.UserStatus
+            };
+            userlist.Add(user);
 
             return _mapper.Map<Response>(user ?? throw new EntityNotFoundException(nameof(User), request.Id));
         }
