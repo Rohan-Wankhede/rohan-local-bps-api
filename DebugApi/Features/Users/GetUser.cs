@@ -1,6 +1,5 @@
 using DebugApi.Common;
 using DebugApi.Common.Exceptions;
-using DebugApi.Infrastructure.Persistence;
 using DebugDomain.Users;
 using MapsterMapper;
 using MediatR;

@@ -5,20 +5,30 @@
     <BreakpointStore>
       <Breakpoint file="/Users/apple/Projects/DebugTest/DebugApi/Common/Exceptions/EntityNotFoundException.cs" relfile="DebugApi/Common/Exceptions/EntityNotFoundException.cs" line="10" column="1" />
       <Breakpoint file="/Users/apple/Projects/DebugTest/DebugApi/Features/Employees/ListEmployees.cs" relfile="DebugApi/Features/Employees/ListEmployees.cs" line="83" column="1" />
+      <Breakpoint file="/Users/apple/Projects/DebugTest/DebugApi/Features/Users/ListUsers.cs" relfile="DebugApi/Features/Users/ListUsers.cs" line="76" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="DebugApi/Features/Users/GetUser.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="DebugDomain/DebugDomain.csproj">
     <Files>
-      <File FileName="DebugApi/Features/Users/CreateUser.cs" Line="75" Column="45" />
-      <File FileName="DebugApi/Features/Users/GetUser.cs" Line="53" Column="30" />
-      <File FileName="DebugApi/Features/Users/EditUser.cs" Line="19" Column="14" />
+      <File FileName="DebugApi/Features/Users/EditUser.cs" Line="4" Column="21" />
+      <File FileName="DebugApi/Features/Users/CreateUser.cs" Line="1" Column="7" />
+      <File FileName="DebugApi/Features/Users/GetUser.cs" Line="2" Column="34" />
+      <File FileName="DebugApi/Features/Employees/CreateEmployee.cs" Line="57" Column="1" />
+      <File FileName="DebugApi/Features/Employees/EmployeeEfConfiguration.cs" Line="1" Column="1" />
+      <File FileName="DebugApi/Features/Users/UserEfConfiguration.cs" Line="33" Column="64" />
+      <File FileName="DebugApi/Features/EndpointsExtension.cs" Line="27" Column="1" />
+      <File FileName=".gitignore" Line="477" Column="6" />
+      <File FileName="DebugApi/Features/Users/ListUsers.cs" Line="23" Column="36" />
+      <File FileName="DebugApi/Features/Employees/GetEmployee.cs" Line="1" Column="1" />
+      <File FileName="DebugApi/Features/Employees/ListEmployees.cs" Line="1" Column="1" />
+      <File FileName="DebugDomain/DebugDomain.csproj" Line="10" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="DebugTest" expanded="True">
+          <Node name="DebugTest" expanded="True" selected="True">
             <Node name="Solution Items" expanded="True" />
-            <Node name="DebugApi" expanded="True">
+            <Node name="DebugApi">
               <Node name="Dependencies" expanded="True">
                 <Node name="PackageDependencies" expanded="True" />
                 <Node name="ProjectDependencies" expanded="True" />
@@ -44,7 +54,6 @@
               <Node name="Employees" expanded="True" />
               <Node name="Users" expanded="True" />
             </Node>
-            <Node name="DebugTest" expanded="True" />
           </Node>
         </State>
       </Pad>

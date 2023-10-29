@@ -10,6 +10,7 @@
 /Users/apple/Projects/DebugTest/DebugTest/obj/Debug/net7.0/DebugTest.AssemblyInfo.cs
 /Users/apple/Projects/DebugTest/DebugTest/obj/Debug/net7.0/DebugTest.csproj.CoreCompileInputs.cache
 /Users/apple/Projects/DebugTest/DebugTest/obj/Debug/net7.0/DebugTest.MvcApplicationPartsAssemblyInfo.cache
+/Users/apple/Projects/DebugTest/DebugTest/obj/Debug/net7.0/DebugTest.sourcelink.json
 /Users/apple/Projects/DebugTest/DebugTest/obj/Debug/net7.0/staticwebassets.build.json
 /Users/apple/Projects/DebugTest/DebugTest/obj/Debug/net7.0/staticwebassets.development.json
 /Users/apple/Projects/DebugTest/DebugTest/obj/Debug/net7.0/staticwebassets/msbuild.DebugTest.Microsoft.AspNetCore.StaticWebAssets.props
@@ -23,4 +24,3 @@
 /Users/apple/Projects/DebugTest/DebugTest/obj/Debug/net7.0/DebugTest.pdb
 /Users/apple/Projects/DebugTest/DebugTest/obj/Debug/net7.0/DebugTest.genruntimeconfig.cache
 /Users/apple/Projects/DebugTest/DebugTest/obj/Debug/net7.0/ref/DebugTest.dll
-/Users/apple/Projects/DebugTest/DebugTest/obj/Debug/net7.0/DebugTest.sourcelink.json

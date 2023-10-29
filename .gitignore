@@ -489,3 +489,11 @@ obj/
 # Ignore .dll and .pdb files
 *.dll
 *.pdb
+
+# Ignore built files
+bin/
+obj/
+
+# Ignore user-specific files
+*.user
+*.suo

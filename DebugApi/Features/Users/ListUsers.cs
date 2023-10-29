@@ -1,4 +1,3 @@
-using System.Text.Json;
 using DebugApi.Common;
 using DebugApi.Common.Exceptions;
 using DebugApi.Infrastructure.Persistence;
@@ -57,7 +56,6 @@ internal class ListUsers
         UserStatus UserStatus
     );
 
-
 #pragma warning disable S2094 // Classes should not be empty
     public record Request() : IRequest<IList<Response>>
     {
@@ -66,12 +64,10 @@ internal class ListUsers
 
     public class RequestHandler : IRequestHandler<Request, IList<Response>>
     {
-        private readonly AppDbContext _dbContext;
         private readonly IMapper _mapper;
 
         public RequestHandler(AppDbContext dbContext, IMapper mapper)
         {
-            _dbContext = dbContext;
             _mapper = mapper;
         }
 

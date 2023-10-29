@@ -1,8 +1,6 @@
-using MediatR;
 using DebugApi.Common;
-using DebugApi.Infrastructure.Persistence;
 using DebugDomain.Users;
-using System.Text.Json;
+using MediatR;
 
 namespace DebugApi.Features.Users;
 // Rohan - To be deleted later when integrated with Azure B2c
