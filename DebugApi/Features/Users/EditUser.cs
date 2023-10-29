@@ -1,10 +1,8 @@
-using MapsterMapper;
-using MediatR;
 using DebugApi.Common;
 using DebugApi.Common.Exceptions;
-using DebugApi.Infrastructure.Persistence;
-using DebugDomain.Common.ValueObjects;
 using DebugDomain.Users;
+using MapsterMapper;
+using MediatR;
 
 namespace DebugApi.Features.Users;
 
@@ -12,10 +10,9 @@ internal class EditUser
 {
     public static WebApplication MapEndpoint(WebApplication app)
     {
-        // I am just checking git integration 
-        app.MapPut("api/v1/users/{id}", async ( Guid id, Request request, ISender sender, CancellationToken token) =>
+        app.MapPut("api/v1/users/{id}", async (Request request, ISender sender, CancellationToken token) =>
         {
-            var response = await sender.Send(new Request(id), token);
+            var response = await sender.Send(request, token);
             return Results.Ok(new ApiResponse<Response>
             {
                 Success = true,
@@ -23,8 +20,8 @@ internal class EditUser
             });
 
         })
-            .WithDescription("Updates an employee's information by ID.")
-            .WithSummary("Update an employee")
+            .WithDescription("Edit User's information by ID.")
+            .WithSummary("Edit User")
             .Produces<ApiResponse<Response>>(StatusCodes.Status200OK)
             .Produces<object>(StatusCodes.Status404NotFound)
             .WithOpenApi();
@@ -32,24 +29,30 @@ internal class EditUser
         return app;
     }
     public record Response(
-        Guid Id,
-        UserName Name,
-        SurName Surname,
-        UserEmail Email,
-        UserRole Role,
-        UserStatus Status
+       Guid Id,
+       string UserName,
+       string SurName,
+       string UserEmail,
+       string UserRole,
+       UserStatus Status
     );
 
-    public record Request(Guid Id) : IRequest<Response>;
+    public record Request(
+       Guid Id,
+       string UserName,
+       string SurName,
+       string UserEmail,
+       string UserRole,
+       UserStatus UserStatus
+
+     ) : IRequest<Response>;
 
     public class RequestHandler : IRequestHandler<Request, Response>
     {
-        private readonly AppDbContext _dbContext;
         private readonly IMapper _mapper;
 
-        public RequestHandler(AppDbContext dbContext, IMapper mapper)
+        public RequestHandler(IMapper mapper)
         {
-            _dbContext = dbContext;
             _mapper = mapper;
         }
 
@@ -58,18 +61,20 @@ internal class EditUser
             string jsonFilePath = "Common/Data/UserData.json";
             var userlist = await JsonFileReader.ReadJsonFileAsync<AzUser>(jsonFilePath, cancellationToken);
 
-            AzUser user = new AzUser
+            AzUser user = userlist.FirstOrDefault(user => user.Id == request.Id)!;
+            if (user != null)
             {
-                Id = Guid.NewGuid(),
-                UserName = request.UserName,
-                SurName = request.SurName,
-                UserEmail = request.UserEmail,
-                UserRole = request.UserRole,
-                UserStatus = request.UserStatus
-            };
-            userlist.Add(user);
-
-            return _mapper.Map<Response>(user ?? throw new EntityNotFoundException(nameof(User), request.Id));
+                user.UserName = request.UserName;
+                user.SurName = request.SurName;
+                user.UserEmail = request.UserEmail;
+                user.UserRole = request.UserRole;
+                user.UserStatus = request.UserStatus;
+            }
+            else
+            {
+                throw new EntityNotFoundException(nameof(User), request.Id);
+            }
+            return new Response(user.Id, user.UserName, user.SurName, user.UserEmail, user.UserRole, user.UserStatus);
         }
     }
 }

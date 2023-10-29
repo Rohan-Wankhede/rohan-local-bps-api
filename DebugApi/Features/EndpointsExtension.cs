@@ -16,10 +16,10 @@ internal static class EndpointsExtension
         GetSecrets.MapEndpoint(app);
 
         // Azure b2c User endpoints
-
         CreateUser.MapEndpoint(app);
         GetUser.MapEndpoint(app);
         ListUsers.MapEndpoint(app);
+        EditUser.MapEndpoint(app);
 
         return app;
     }

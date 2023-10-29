@@ -23,3 +23,4 @@
 /Users/apple/Projects/DebugTest/DebugTest/obj/Debug/net7.0/DebugTest.pdb
 /Users/apple/Projects/DebugTest/DebugTest/obj/Debug/net7.0/DebugTest.genruntimeconfig.cache
 /Users/apple/Projects/DebugTest/DebugTest/obj/Debug/net7.0/ref/DebugTest.dll
+/Users/apple/Projects/DebugTest/DebugTest/obj/Debug/net7.0/DebugTest.sourcelink.json

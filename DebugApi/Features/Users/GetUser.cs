@@ -1,12 +1,9 @@
-using MapsterMapper;
-using MediatR;
 using DebugApi.Common;
 using DebugApi.Common.Exceptions;
 using DebugApi.Infrastructure.Persistence;
-using DebugDomain.Common.ValueObjects;
 using DebugDomain.Users;
-using System.Text.Json;
-using System.Linq;
+using MapsterMapper;
+using MediatR;
 
 namespace DebugApi.Features.Users;
 
@@ -44,12 +41,10 @@ internal class GetUser
 
     public class RequestHandler : IRequestHandler<Request, Response>
     {
-        private readonly AppDbContext _dbContext;
         private readonly IMapper _mapper;
 
-        public RequestHandler(AppDbContext dbContext, IMapper mapper)
+        public RequestHandler(IMapper mapper)
         {
-            _dbContext = dbContext;
             _mapper = mapper;
         }
 
@@ -59,7 +54,6 @@ internal class GetUser
             var userlist = await JsonFileReader.ReadJsonFileAsync<AzUser>(jsonFilePath, cancellationToken);
 
             AzUser user = userlist.FirstOrDefault(userlist => userlist.Id == request.Id)!;
-
             return _mapper.Map<Response>(user ?? throw new EntityNotFoundException(nameof(User), request.Id));
 
         }

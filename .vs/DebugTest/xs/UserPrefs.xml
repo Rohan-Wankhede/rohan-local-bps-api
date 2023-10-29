@@ -2,32 +2,34 @@
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <Breakpoint file="/Users/apple/Projects/DebugTest/DebugApi/Common/Exceptions/EntityNotFoundException.cs" relfile="DebugApi/Common/Exceptions/EntityNotFoundException.cs" line="10" column="1" />
-    <Breakpoint file="/Users/apple/Projects/DebugTest/DebugApi/Features/Employees/ListEmployees.cs" relfile="DebugApi/Features/Employees/ListEmployees.cs" line="83" column="1" />
+    <BreakpointStore>
+      <Breakpoint file="/Users/apple/Projects/DebugTest/DebugApi/Common/Exceptions/EntityNotFoundException.cs" relfile="DebugApi/Common/Exceptions/EntityNotFoundException.cs" line="10" column="1" />
+      <Breakpoint file="/Users/apple/Projects/DebugTest/DebugApi/Features/Employees/ListEmployees.cs" relfile="DebugApi/Features/Employees/ListEmployees.cs" line="83" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.Workbench ActiveDocument="DebugApi/Features/Users/GetUser.cs">
     <Files>
-      <File FileName="DebugApi/Features/Users/ListUsers.cs" Line="74" Column="10" />
-      <File FileName="DebugApi/Features/Employees/ListEmployees.cs" Line="71" Column="6" />
-      <File FileName="DebugApi/Common/Exceptions/EntityNotFoundException.cs" Line="15" Column="1" />
-      <File FileName="DebugApi/Features/Users/GetUser.cs" Line="27" Column="24" />
+      <File FileName="DebugApi/Features/Users/CreateUser.cs" Line="75" Column="45" />
+      <File FileName="DebugApi/Features/Users/GetUser.cs" Line="53" Column="30" />
+      <File FileName="DebugApi/Features/Users/EditUser.cs" Line="19" Column="14" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="DebugTest" expanded="True">
+            <Node name="Solution Items" expanded="True" />
             <Node name="DebugApi" expanded="True">
               <Node name="Dependencies" expanded="True">
+                <Node name="PackageDependencies" expanded="True" />
                 <Node name="ProjectDependencies" expanded="True" />
               </Node>
               <Node name="Common" expanded="True">
+                <Node name="Data" expanded="True" />
                 <Node name="Exceptions" expanded="True" />
               </Node>
               <Node name="Features" expanded="True">
                 <Node name="Employees" expanded="True" />
-                <Node name="Users" expanded="True">
-                  <Node name="GetUser.cs" selected="True" />
-                </Node>
+                <Node name="Users" expanded="True" />
               </Node>
               <Node name="Infrastructure" expanded="True">
                 <Node name="Persistence" expanded="True" />
@@ -36,11 +38,18 @@
               <Node name="appsettings.json" expanded="True" />
             </Node>
             <Node name="DebugDomain" expanded="True">
+              <Node name="Common" expanded="True">
+                <Node name="ValueObjects" expanded="True" />
+              </Node>
               <Node name="Employees" expanded="True" />
+              <Node name="Users" expanded="True" />
             </Node>
             <Node name="DebugTest" expanded="True" />
           </Node>
         </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

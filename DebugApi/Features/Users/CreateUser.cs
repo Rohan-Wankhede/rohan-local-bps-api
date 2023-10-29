@@ -54,13 +54,7 @@ internal class CreateUser
 
     public class RequestHandler : IRequestHandler<Request, Response>
     {
-        private readonly AppDbContext _dbContext;
-
-        public RequestHandler(AppDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
-
+        public RequestHandler() { }
         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
             string jsonFilePath = "Common/Data/UserData.json";
@@ -76,7 +70,6 @@ internal class CreateUser
                 UserStatus = request.UserStatus
             };
             userlist.Add(user);
-
             return new Response(user.Id, user.UserName, user.SurName, user.UserEmail, user.UserRole, user.UserStatus);
 
         }
