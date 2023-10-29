@@ -1,0 +1,11 @@
+/Users/apple/Projects/DebugTest/DebugDomain/bin/Debug/net7.0/DebugDomain.deps.json
+/Users/apple/Projects/DebugTest/DebugDomain/bin/Debug/net7.0/DebugDomain.dll
+/Users/apple/Projects/DebugTest/DebugDomain/bin/Debug/net7.0/DebugDomain.pdb
+/Users/apple/Projects/DebugTest/DebugDomain/obj/Debug/net7.0/DebugDomain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/apple/Projects/DebugTest/DebugDomain/obj/Debug/net7.0/DebugDomain.AssemblyInfoInputs.cache
+/Users/apple/Projects/DebugTest/DebugDomain/obj/Debug/net7.0/DebugDomain.AssemblyInfo.cs
+/Users/apple/Projects/DebugTest/DebugDomain/obj/Debug/net7.0/DebugDomain.csproj.CoreCompileInputs.cache
+/Users/apple/Projects/DebugTest/DebugDomain/obj/Debug/net7.0/DebugDomain.dll
+/Users/apple/Projects/DebugTest/DebugDomain/obj/Debug/net7.0/refint/DebugDomain.dll
+/Users/apple/Projects/DebugTest/DebugDomain/obj/Debug/net7.0/DebugDomain.pdb
+/Users/apple/Projects/DebugTest/DebugDomain/obj/Debug/net7.0/ref/DebugDomain.dll

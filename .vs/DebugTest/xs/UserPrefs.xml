@@ -1,0 +1,49 @@
+﻿<Properties StartupConfiguration="{DAB3A4FD-6901-43F2-9FFD-5103191FB0B6}|https">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <Breakpoint file="/Users/apple/Projects/DebugTest/DebugApi/Common/Exceptions/EntityNotFoundException.cs" relfile="DebugApi/Common/Exceptions/EntityNotFoundException.cs" line="10" column="1" />
+    <Breakpoint file="/Users/apple/Projects/DebugTest/DebugApi/Features/Employees/ListEmployees.cs" relfile="DebugApi/Features/Employees/ListEmployees.cs" line="83" column="1" />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workbench ActiveDocument="DebugApi/Features/Users/GetUser.cs">
+    <Files>
+      <File FileName="DebugApi/Features/Users/ListUsers.cs" Line="74" Column="10" />
+      <File FileName="DebugApi/Features/Employees/ListEmployees.cs" Line="71" Column="6" />
+      <File FileName="DebugApi/Common/Exceptions/EntityNotFoundException.cs" Line="15" Column="1" />
+      <File FileName="DebugApi/Features/Users/GetUser.cs" Line="27" Column="24" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="DebugTest" expanded="True">
+            <Node name="DebugApi" expanded="True">
+              <Node name="Dependencies" expanded="True">
+                <Node name="ProjectDependencies" expanded="True" />
+              </Node>
+              <Node name="Common" expanded="True">
+                <Node name="Exceptions" expanded="True" />
+              </Node>
+              <Node name="Features" expanded="True">
+                <Node name="Employees" expanded="True" />
+                <Node name="Users" expanded="True">
+                  <Node name="GetUser.cs" selected="True" />
+                </Node>
+              </Node>
+              <Node name="Infrastructure" expanded="True">
+                <Node name="Persistence" expanded="True" />
+              </Node>
+              <Node name="Properties" expanded="True" />
+              <Node name="appsettings.json" expanded="True" />
+            </Node>
+            <Node name="DebugDomain" expanded="True">
+              <Node name="Employees" expanded="True" />
+            </Node>
+            <Node name="DebugTest" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.DebugApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
+</Properties>
