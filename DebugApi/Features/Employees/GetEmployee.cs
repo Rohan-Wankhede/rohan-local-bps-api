@@ -1,10 +1,9 @@
-using MapsterMapper;
-using MediatR;
 using DebugApi.Common;
-using DebugApi.Common.Exceptions;
 using DebugApi.Infrastructure.Persistence;
 using DebugDomain.Common.ValueObjects;
 using DebugDomain.Employees;
+using MapsterMapper;
+using MediatR;
 
 namespace DebugApi.Features.Employees;
 
@@ -15,16 +14,12 @@ internal class GetEmployee
         app.MapGet("api/v1/employees/{id}", async (Guid id, ISender sender, CancellationToken token) =>
         {
             var response = await sender.Send(new Request(id), token);
-            return Results.Ok(new ApiResponse<Response>
-            {
-                Success = true,
-                Data = response
-            });
+            return response.Success ? Results.Ok(response) : Results.NotFound(response);
         })
         .WithDescription("Get employee by its id.")
         .WithSummary("Get employee")
         .Produces<ApiResponse<Response>>()
-        .WithOpenApi(); 
+        .WithOpenApi();
 
         return app;
     }
@@ -36,9 +31,9 @@ internal class GetEmployee
         string Name
     );
 
-    public record Request(Guid Id) : IRequest<Response>;
+    public record Request(Guid Id) : IRequest<ApiResponse<Response>>;
 
-    public class RequestHandler : IRequestHandler<Request, Response>
+    public class RequestHandler : IRequestHandler<Request, ApiResponse<Response>>
     {
         private readonly AppDbContext _dbContext;
         private readonly IMapper _mapper;
@@ -49,12 +44,16 @@ internal class GetEmployee
             _mapper = mapper;
         }
 
-        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+        public async Task<ApiResponse<Response>> Handle(Request request, CancellationToken cancellationToken)
         {
             var employee = await _dbContext.Employees
-                .FindAsync(new object[] { (Id)request.Id }, cancellationToken);
+                   .FindAsync(new object[] { (Id)request.Id }, cancellationToken)!;
 
-            return _mapper.Map<Response>(employee ?? throw new EntityNotFoundException(nameof(Employee), request.Id));
+            if (employee == null)
+            {
+                return ApiResponseHelper.ErrorResponse<Response>("EntityNotFound", $"Employee with ID {request.Id} was not found.");
+            }
+            return ApiResponseHelper.SuccessResponse(_mapper.Map<Response>(employee));
         }
     }
 }

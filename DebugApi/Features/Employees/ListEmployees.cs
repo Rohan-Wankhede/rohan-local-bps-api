@@ -16,30 +16,7 @@ internal class ListEmployees
         {
 
             var response = await sender.Send(new Request(), token);
-
-            if (response != null && response.Count > 0)
-            {
-                // Handle the list of responses as needed.
-                return Results.Ok(new ApiResponse<IList<Response>>
-                {
-                    Success = true,
-                    Data = response
-                });
-            }
-            else
-            {
-                // Handle the case where the response list is empty.
-                return Results.BadRequest(new ApiResponse<Response>
-                {
-                    Success = false,
-                    Error = new ApiError
-                    {
-                        Code = "E5678",
-                        Message = "No responses were found."
-                    },
-                    Data = null
-                });
-            }
+            return response.Success ? Results.Ok(response) : Results.NotFound(response);
 
         })
             .WithDescription("Get all of the employees list.")
@@ -58,12 +35,12 @@ internal class ListEmployees
     );
 
 #pragma warning disable S2094 // Classes should not be empty
-    public record Request() : IRequest<IList<Response>>
+    public record Request() : IRequest<ApiResponse<List<Response>>>
     {
     }
 #pragma warning restore S2094 // Classes should not be empty
 
-    public class RequestHandler : IRequestHandler<Request, IList<Response>>
+    public class RequestHandler : IRequestHandler<Request, ApiResponse<List<Response>>>
     {
         private readonly AppDbContext _dbContext;
         private readonly IMapper _mapper;
@@ -74,13 +51,18 @@ internal class ListEmployees
             _mapper = mapper;
         }
 
-        public async Task<IList<Response>> Handle(Request request, CancellationToken cancellationToken)
+        public async Task<ApiResponse<List<Response>>> Handle(Request request, CancellationToken cancellationToken)
         {
-            var employee = await _dbContext.Employees
-                .ToListAsync(cancellationToken);
+            var employees = await _dbContext.Employees
+               .ToListAsync(cancellationToken);
 
-            var abc = _mapper.Map<List<Response>>(employee ?? throw new EntityNotFoundException(nameof(Employee)));
-            return abc;
+            if (employees == null || employees.Count == 0)
+            {
+                return ApiResponseHelper.ErrorResponse<List<Response>>("EntityNotFound", "No Employee records found !!.");
+            }
+            var response = _mapper.Map<List<Response>>(employees);
+            return ApiResponseHelper.SuccessResponse(response);
         }
+
     }
 }

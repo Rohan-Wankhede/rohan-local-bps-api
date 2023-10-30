@@ -9,6 +9,6 @@ public class EntityNotFoundException : CommonException
 
     private static string BuildErrorMessage(string entityName, object? id)
     {
-        return id == null ? $"{entityName} was not found." : $"{entityName} with ID ({id}) was not found!";
+        return id == null ? $"{entityName} was not found." : $"No Records !";
     }
 }
