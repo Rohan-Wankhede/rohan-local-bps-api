@@ -1,10 +1,9 @@
-﻿using MapsterMapper;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-using DebugApi.Common;
-using DebugApi.Common.Exceptions;
+﻿using DebugApi.Common;
 using DebugApi.Infrastructure.Persistence;
 using DebugDomain.Employees;
+using MapsterMapper;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace DebugApi.Features.Employees;
 

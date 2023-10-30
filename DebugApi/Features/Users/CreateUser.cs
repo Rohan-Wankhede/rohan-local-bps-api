@@ -10,29 +10,23 @@ internal class CreateUser
     {
         var baseUrl = "api/v1/user";
 
-        app.MapPost(baseUrl, async (
-            Request request,
-            ISender sender,
-            CancellationToken token) =>
+        app.MapPost(baseUrl, async (Request request, ISender sender, CancellationToken token) =>
         {
             var response = await sender.Send(request, token);
-
             return Results.Created($"api/v1/user/{response.Id}", new ApiResponse<Response>()
             {
                 Success = true,
                 Data = response
             });
-
         })
-            .WithDescription("Creates a user and return its id if succeed.")
-            .WithSummary("Create a user")
-            .Produces<ApiResponse<Response>>(StatusCodes.Status201Created)
-            .WithOpenApi();
+        .WithDescription("Creates a user and return its id if succeed.")
+        .WithSummary("Create a user")
+        .Produces<ApiResponse<Response>>(StatusCodes.Status201Created)
+        .WithOpenApi();
 
         return app;
     }
 
-   
     public record Response(
        Guid Id,
        string UserName,
@@ -40,14 +34,14 @@ internal class CreateUser
        string UserEmail,
        string UserRole,
        UserStatus UserStatus
-   );
+    );
+
     public record Request(
        string UserName,
        string SurName,
        string UserEmail,
        string UserRole,
        UserStatus UserStatus
-
      ) : IRequest<Response>;
 
     public class RequestHandler : IRequestHandler<Request, Response>
@@ -69,7 +63,6 @@ internal class CreateUser
             };
             userlist.Add(user);
             return new Response(user.Id, user.UserName, user.SurName, user.UserEmail, user.UserRole, user.UserStatus);
-
         }
     }
 }

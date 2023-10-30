@@ -1,5 +1,4 @@
 using DebugApi.Common;
-using DebugApi.Common.Exceptions;
 using DebugDomain.Users;
 using MapsterMapper;
 using MediatR;
@@ -10,21 +9,17 @@ internal class EditUser
 {
     public static WebApplication MapEndpoint(WebApplication app)
     {
-        app.MapPut("api/v1/users/{id}", async (Request request, ISender sender, CancellationToken token) =>
+        app.MapPut("api/v1/users/{Id}", async (Request request, ISender sender, CancellationToken token) =>
         {
             var response = await sender.Send(request, token);
-            return Results.Ok(new ApiResponse<Response>
-            {
-                Success = true,
-                Data = response
-            });
+            return response.Success ? Results.Ok(response) : Results.NotFound(response);
 
         })
-            .WithDescription("Edit User's information by ID.")
-            .WithSummary("Edit User")
-            .Produces<ApiResponse<Response>>(StatusCodes.Status200OK)
-            .Produces<object>(StatusCodes.Status404NotFound)
-            .WithOpenApi();
+        .WithDescription("Edit User's information by ID.")
+        .WithSummary("Edit User")
+        .Produces<ApiResponse<Response>>(StatusCodes.Status200OK)
+        .Produces<object>(StatusCodes.Status404NotFound)
+        .WithOpenApi();
 
         return app;
     }
@@ -45,9 +40,9 @@ internal class EditUser
        string UserRole,
        UserStatus UserStatus
 
-     ) : IRequest<Response>;
+     ) : IRequest<ApiResponse<Response>>;
 
-    public class RequestHandler : IRequestHandler<Request, Response>
+    public class RequestHandler : IRequestHandler<Request, ApiResponse<Response>>
     {
         private readonly IMapper _mapper;
 
@@ -56,7 +51,7 @@ internal class EditUser
             _mapper = mapper;
         }
 
-        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+        public async Task<ApiResponse<Response>> Handle(Request request, CancellationToken cancellationToken)
         {
             string jsonFilePath = "Common/Data/UserData.json";
             var userlist = await JsonFileReader.ReadJsonFileAsync<AzUser>(jsonFilePath, cancellationToken);
@@ -72,9 +67,10 @@ internal class EditUser
             }
             else
             {
-                throw new EntityNotFoundException(nameof(User), request.Id);
+                return ApiResponseHelper.ErrorResponse<Response>("EntityNotFound", $"Employee with ID {request.Id} was not found.");
             }
-            return new Response(user.Id, user.UserName, user.SurName, user.UserEmail, user.UserRole, user.UserStatus);
+            return ApiResponseHelper.SuccessResponse(new Response(user.Id, user.UserName, user.SurName, user.UserEmail, user.UserRole, user.UserStatus));
+
         }
     }
 }

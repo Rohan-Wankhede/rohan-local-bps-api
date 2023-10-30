@@ -1,6 +1,4 @@
 using DebugApi.Common;
-using DebugApi.Common.Exceptions;
-using DebugApi.Infrastructure.Persistence;
 using DebugDomain.Users;
 using MapsterMapper;
 using MediatR;
@@ -14,35 +12,13 @@ internal class ListUsers
         app.MapGet("api/v1/users", async (ISender sender, CancellationToken token) =>
         {
             var response = await sender.Send(new Request(), token);
-            if (response != null && response.Count > 0)
-            {
-                // Handle the list of responses as needed.
-                return Results.Ok(new ApiResponse<IList<Response>>
-                {
-                    Success = true,
-                    Data = response
-                });
-            }
-            else
-            {
-                // Handle the case where the response list is empty.
-                return Results.BadRequest(new ApiResponse<Response>
-                {
-                    Success = false,
-                    Error = new ApiError
-                    {
-                        Code = "E5678",
-                        Message = "No responses were found."
-                    },
-                    Data = null
-                });
-            }
+            return response.Success ? Results.Ok(response) : Results.NotFound(response);
 
         })
-            .WithDescription("Get all of the user list.")
-            .WithSummary("Get users")
-            .Produces<ApiResponse<Response>>()
-            .WithOpenApi();
+        .WithDescription("Get all of the user list.")
+        .WithSummary("Get users")
+        .Produces<ApiResponse<Response>>()
+        .WithOpenApi();
 
         return app;
     }
@@ -57,27 +33,31 @@ internal class ListUsers
     );
 
 #pragma warning disable S2094 // Classes should not be empty
-    public record Request() : IRequest<IList<Response>>
+    public record Request() : IRequest<ApiResponse<List<Response>>>
     {
     }
 #pragma warning restore S2094 // Classes should not be empty
 
-    public class RequestHandler : IRequestHandler<Request, IList<Response>>
+    public class RequestHandler : IRequestHandler<Request, ApiResponse<List<Response>>>
     {
         private readonly IMapper _mapper;
 
-        public RequestHandler(AppDbContext dbContext, IMapper mapper)
+        public RequestHandler(IMapper mapper)
         {
             _mapper = mapper;
         }
 
-        public async Task<IList<Response>> Handle(Request request, CancellationToken cancellationToken)
+        public async Task<ApiResponse<List<Response>>> Handle(Request request, CancellationToken cancellationToken)
         {
             string jsonFilePath = "Common/Data/UserData.json";
             var userlist = await JsonFileReader.ReadJsonFileAsync<AzUser>(jsonFilePath, cancellationToken);
 
-            return _mapper.Map<List<Response>>(userlist ?? throw new EntityNotFoundException(nameof(User))); ;
+            if (userlist == null || userlist.Count == 0)
+            {
+                return ApiResponseHelper.ErrorResponse<List<Response>>("EntityNotFound", "No User records found !!.");
+            }
+            var response = _mapper.Map<List<Response>>(userlist);
+            return ApiResponseHelper.SuccessResponse(response);
         }
     }
-    
 }

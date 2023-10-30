@@ -1,5 +1,6 @@
 using DebugApi.Common;
 using DebugApi.Common.Exceptions;
+using DebugDomain.Employees;
 using DebugDomain.Users;
 using MapsterMapper;
 using MediatR;
@@ -13,11 +14,7 @@ internal class GetUser
         app.MapGet("api/v1/users/{id}", async (Guid id, ISender sender, CancellationToken token) =>
         {
             var response = await sender.Send(new Request(id), token);
-            return Results.Ok(new ApiResponse<Response>
-            {
-                Success = true,
-                Data = response
-            });
+            return response.Success ? Results.Ok(response) : Results.NotFound(response);
         })
         .WithDescription("Get users by its id.")
         .WithSummary("Get users")
@@ -36,9 +33,9 @@ internal class GetUser
         UserStatus UserStatus
     );
 
-    public record Request(Guid Id) : IRequest<Response>;
+    public record Request(Guid Id) : IRequest<ApiResponse<Response>>;
 
-    public class RequestHandler : IRequestHandler<Request, Response>
+    public class RequestHandler : IRequestHandler<Request, ApiResponse<Response>>
     {
         private readonly IMapper _mapper;
 
@@ -47,13 +44,17 @@ internal class GetUser
             _mapper = mapper;
         }
 
-        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+        public async Task<ApiResponse<Response>> Handle(Request request, CancellationToken cancellationToken)
         {
             string jsonFilePath = "Common/Data/UserData.json";
             var userlist = await JsonFileReader.ReadJsonFileAsync<AzUser>(jsonFilePath, cancellationToken);
 
             AzUser user = userlist.FirstOrDefault(userlist => userlist.Id == request.Id)!;
-            return _mapper.Map<Response>(user ?? throw new EntityNotFoundException(nameof(User), request.Id));
+            if (user == null)
+            {
+                return ApiResponseHelper.ErrorResponse<Response>("EntityNotFound", $"Employee with ID {request.Id} was not found.");
+            }
+            return ApiResponseHelper.SuccessResponse(_mapper.Map<Response>(user));
 
         }
     }
